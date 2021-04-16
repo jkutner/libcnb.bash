@@ -1,6 +1,6 @@
-# lincnb.bash
+# libcnb.bash
 
-This is a Bash script binding of the Cloud Native Buildpacks API. It is a non-opinionated implementation adding language constructs and convenience methods for working with the API.
+This is a Bash binding of the Cloud Native Buildpacks API. It is a non-opinionated implementation adding language constructs and convenience methods for working with the API.
 
 ## Usage
 

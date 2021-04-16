@@ -7,7 +7,7 @@ This is a Bash script binding of the Cloud Native Buildpacks API. It is a non-op
 Source the script directly from the Releases:
 
 ```
-source https://github.com/jkutner/libcnb.bash/releases/tag/1.0.0
+source https://github.com/jkutner/libcnb.bash/releases/tag/0.0.1
 ```
 
 Or vendor the `libcnb.bash` script into your buildpack, and source it:

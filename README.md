@@ -16,6 +16,14 @@ Or vendor the [`libcnb.bash`](https://github.com/jkutner/libcnb.bash/blob/main/l
 source $CNB_BUILDPACK_DIR/lib/libcnb.bash
 ```
 
+## Testing
+
+The `test.bats` script requires the [`bats`](https://github.com/sstephenson/bats) framework. Once it's installed, you can run:
+
+```
+$ make test
+```
+
 ## License
 
 MIT

@@ -20,7 +20,7 @@ cnb_load_env() {
 
 cnb_create_layer() {
   local name=${1:?}
-  local dir=${CNB_LAYERS_DIR:?}
+  local dir=${CNB_BP_LAYERS_DIR:?}
   mkdir -p "${dir}/${name}" > /dev/null
   touch "${dir}/${name}.toml" > /dev/null
   # TODO use a param to set launch, build, cache
@@ -33,7 +33,7 @@ cnb_create_layer() {
 cnb_create_process(){
   local type=${1:?}
   local command=${2:?}
-  local dir=${CNB_LAYERS_DIR:?}
+  local dir=${CNB_BP_CONFIG_DIR:?}
   cat <<EOF > "${dir}/launch.toml"
 [[processes]]
 type = "${type}"

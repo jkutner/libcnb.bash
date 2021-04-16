@@ -16,4 +16,5 @@ teardown() {
   run cnb_create_layer "hello"
   [ "$status" -eq 0 ]
   [[ "$output" == "$CNB_LAYERS_DIR/hello" ]] || false
+  [ -f "$CNB_LAYERS_DIR/hello.toml" ] || false
 }

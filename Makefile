@@ -6,6 +6,6 @@ check:
 	shellcheck libcnb.bash
 
 test:
-	bats tests.bats
+	bats test.bats
 
 .PHONY: check

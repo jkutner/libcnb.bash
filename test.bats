@@ -9,10 +9,15 @@ setup() {
 
   mkdir -p "$BATS_TMPDIR/config"
   export CNB_BP_CONFIG_DIR="$BATS_TMPDIR/config/"
+
+  mkdir -p "$BATS_TMPDIR/platform"
+  export CNB_PLATFORM_DIR="$BATS_TMPDIR/platform/"
 }
 
 teardown() {
   unset CNB_LAYERS_DIR
+  unset CNB_BP_CONFIG_DIR
+  unset CNB_PLATFORM_DIR
 }
 
 @test "creates a layer" {

@@ -9,11 +9,7 @@ setup() {
 }
 
 teardown() {
-  unset PROFILE_PATH
-  unset EXPORT_PATH
-  unset BUILDPACK_LOG_FILE
-  unset BPLOG_PREFIX
-  unset ENV_DIR
+  unset CNB_LAYERS_DIR
 }
 
 @test "creates a layer" {

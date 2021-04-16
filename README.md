@@ -10,7 +10,7 @@ Source the script directly from the Releases:
 source "https://github.com/jkutner/libcnb.bash/releases/download/0.0.1/libcnb.bash"
 ```
 
-Or vendor the `libcnb.bash` script into your buildpack, and source it:
+Or vendor the [`libcnb.bash`](https://github.com/jkutner/libcnb.bash/blob/main/libcnb.bash) script into your buildpack, and source it:
 
 ```sh-sesssion
 source $CNB_BUILDPACK_DIR/lib/libcnb.bash

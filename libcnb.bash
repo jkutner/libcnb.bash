@@ -4,7 +4,7 @@
 
 cnb_load_env() {
   local env_dir
-  if [ -n "${CNB_PLATFORM_DIR:-}" ]; then
+  if [[ -n "${CNB_PLATFORM_DIR:-}" ]]; then
     env_dir=${CNB_PLATFORM_DIR}/env
   else
     env_dir=${1:?}
@@ -20,13 +20,25 @@ cnb_load_env() {
 
 cnb_create_layer() {
   local name=${1:?}
+  local scope=${2:-"launch,build,cache"}
   local dir=${CNB_BP_LAYERS_DIR:?}
-  mkdir -p "${dir}/${name}" > /dev/null
-  touch "${dir}/${name}.toml" > /dev/null
-  # TODO use a param to set launch, build, cache
+  mkdir -p "${dir}/${name}"
+  touch "${dir}/${name}.toml"
+
+  if [[ "$scope" == *"launch"* ]]; then
+    echo "launch = true" >> "${dir}/${name}.toml"
+  fi
+
+  if [[ "$scope" == *"build"* ]]; then
+    echo "build = true" >> "${dir}/${name}.toml"
+  fi
+
+  if [[ "$scope" == *"cache"* ]]; then
+    echo "cache = true" >> "${dir}/${name}.toml"
+  fi
+
   echo "${dir}/${name}"
 }
-
 
 # Launch Config
 

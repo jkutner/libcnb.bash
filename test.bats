@@ -72,6 +72,32 @@ teardown() {
   cat $CNB_BP_LAYERS_DIR/hello.toml | grep -vq "build = true" || false
 }
 
+@test "sets layer env var" {
+  run cnb_create_layer "with_env"
+  [ "$status" -eq 0 ]
+
+  run cnb_set_layer_env "with_env" "TEST_VAR" "something"
+  [ "$status" -eq 0 ]
+
+  unset TEST_VAR
+  cnb_load_layer "with_env"
+  [ -n "$TEST_VAR" ] || false
+  [[ "$TEST_VAR" == "something" ]] || false
+  unset TEST_VAR
+}
+
+@test "sets layer metadata" {
+  run cnb_create_layer "with_env"
+  [ "$status" -eq 0 ]
+
+  run cnb_set_layer_metadata "with_env" """
+something = true
+"""
+  [ "$status" -eq 0 ]
+  [ -f "$CNB_BP_LAYERS_DIR/with_env.toml" ] || false
+  [[ "$(cat $CNB_BP_LAYERS_DIR/with_env.toml)" == *"something = true"* ]] || false
+}
+
 @test "creates a process type" {
   run cnb_create_process "web" "bash start.sh"
   [ "$status" -eq 0 ]

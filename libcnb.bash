@@ -69,6 +69,17 @@ cnb_load_layer() {
   export "LD_LIBRARY_PATH=$layer_dir/lib:${LD_LIBRARY_PATH:-}"
 }
 
+cnb_set_layer_metadata() {
+  local name=${1:?}
+  local toml=${2:?}
+  local layers_dir=${CNB_BP_LAYERS_DIR:?}
+  local layer_toml="${layers_dir}/${name}.toml"
+  cat <<EOF >> "${layer_toml}"
+[metadata]
+${2}
+EOF
+}
+
 # Launch Config
 
 cnb_create_process(){

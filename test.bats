@@ -20,6 +20,17 @@ teardown() {
   unset CNB_PLATFORM_DIR
 }
 
+@test "laods a platform env var" {
+  unset TEST_VAR
+  local env_dir="${CNB_PLATFORM_DIR}/env"
+  mkdir -p "${env_dir}"
+  echo -n "success" > "${env_dir}/TEST_VAR"
+  cnb_load_env
+  [ -n "$TEST_VAR" ] || false
+  [[ "$TEST_VAR" == "success" ]] || false
+  unset TEST_VAR
+}
+
 @test "creates a layer" {
   run cnb_create_layer "hello"
   [ "$status" -eq 0 ]

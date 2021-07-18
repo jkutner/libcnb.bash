@@ -20,7 +20,7 @@ teardown() {
   unset CNB_PLATFORM_DIR
 }
 
-@test "laods a platform env var" {
+@test "loads a platform env var" {
   unset TEST_VAR
   local env_dir="${CNB_PLATFORM_DIR}/env"
   mkdir -p "${env_dir}"

@@ -6,7 +6,17 @@ _cnb_load_env() {
   local env_dir=${1:?}
   if compgen -G "${env_dir}/*" > /dev/null; then
     for var in "${env_dir}"/*; do
-      export "$(basename "${var}")=$(<"${var}")"
+      if [[ "$(basename $var)" == "PATH" ]]; then
+        export PATH="$(<"$var"):$PATH"
+      elif [[ $var == *.prepend ]]; then
+        local var_only="$(basename "${var}" .prepend)"
+        export "${var_only}=$(<"${var}"):$(printenv ${var_only})"
+      elif [[ $var == *.append ]]; then
+        local var_only="$(basename "${var}" .append)"
+        export "${var_only}=$(printenv ${var}):$(<"${var_only}")"
+      else
+        export "$(basename "${var}")=$(<"${var}")"
+      fi
     done
   fi
 }
@@ -65,8 +75,8 @@ cnb_load_layer() {
   _cnb_load_env "${layer_dir}/env"
   _cnb_load_env "${layer_dir}/env.build"
 
-  export "PATH=$layer_dir/bin:$PATH"
-  export "LD_LIBRARY_PATH=$layer_dir/lib:${LD_LIBRARY_PATH:-}"
+  if [[ -d "$layer_dir/bin" ]]; then export "PATH=$layer_dir/bin:$PATH"; fi
+  if [[ -d "$layer_dir/lib" ]]; then export "LD_LIBRARY_PATH=$layer_dir/lib:${LD_LIBRARY_PATH:-}"; fi
 }
 
 cnb_set_layer_metadata() {

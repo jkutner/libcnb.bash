@@ -36,25 +36,37 @@ cnb_load_env() {
 cnb_create_layer() {
   local name=${1:?}
   local scope=${2:-"launch,build,cache"}
-  local dir=${CNB_BP_LAYERS_DIR:?}
-  mkdir -p "${dir}/${name}"
+  local layers_dir=${CNB_BP_LAYERS_DIR:?}
+  local layer_dir="${layers_dir}/${name}"
+  mkdir -p "${layer_dir}"
 
-  if [[ ! -f "${dir}/${name}.toml" ]]; then
+  if [[ ! -f "${layer_dir}.toml" ]]; then
     if [[ "$scope" == *"launch"* ]]; then
-      echo "launch = true" >> "${dir}/${name}.toml"
+      echo "launch = true" >> "${layer_dir}.toml"
     fi
 
     if [[ "$scope" == *"build"* ]]; then
-      echo "build = true" >> "${dir}/${name}.toml"
+      echo "build = true" >> "${layer_dir}.toml"
     fi
 
     if [[ "$scope" == *"cache"* ]]; then
-      echo "cache = true" >> "${dir}/${name}.toml"
+      echo "cache = true" >> "${layer_dir}.toml"
     fi
   else
-    touch "${dir}/${name}.toml"
+    touch "${layer_dir}.toml"
     # TODO what if the existing launch,build,cache don't match?
   fi
+  echo "${layer_dir}"
+}
+
+cnb_reset_layer() {
+  local name=${1:?}
+  local scope=${2:-"launch,build,cache"}
+  local layers_dir=${CNB_BP_LAYERS_DIR:?}
+  local layer_dir="${layers_dir}/${name}"
+  rm -rf "${layer_dir}"
+  rm -f "${layer_dir}.toml"
+  cnb_create_layer "${name}" "${scope}" "${layers_dir}"
 }
 
 cnb_set_layer_env() {

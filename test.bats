@@ -42,6 +42,18 @@ teardown() {
   [[ "$(cat $CNB_BP_LAYERS_DIR/hello.toml)" == *"cache = true"* ]] || false
 }
 
+@test "resets a layer" {
+  run cnb_create_layer "hello" "launch"
+  run cnb_reset_layer "hello"
+  [ "$status" -eq 0 ]
+  # [[ "$output" == "$CNB_BP_LAYERS_DIR/hello" ]] || false
+  [ -d "$CNB_BP_LAYERS_DIR/hello" ] || false
+  [ -f "$CNB_BP_LAYERS_DIR/hello.toml" ] || false
+  [[ "$(cat $CNB_BP_LAYERS_DIR/hello.toml)" == *"launch = true"* ]] || false
+  [[ "$(cat $CNB_BP_LAYERS_DIR/hello.toml)" == *"build = true"* ]] || false
+  [[ "$(cat $CNB_BP_LAYERS_DIR/hello.toml)" == *"cache = true"* ]] || false
+}
+
 @test "creates a build layer" {
   run cnb_create_layer "hello" "build"
   [ "$status" -eq 0 ]

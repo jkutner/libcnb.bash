@@ -41,6 +41,8 @@ cnb_create_layer() {
   mkdir -p "${layer_dir}"
 
   if [[ ! -f "${layer_dir}.toml" ]]; then
+    echo "[types]" >> "${layer_dir}.toml"
+
     if [[ "$scope" == *"launch"* ]]; then
       echo "launch = true" >> "${layer_dir}.toml"
     fi

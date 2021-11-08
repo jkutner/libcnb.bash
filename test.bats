@@ -37,6 +37,7 @@ teardown() {
   # [[ "$output" == "$CNB_BP_LAYERS_DIR/hello" ]] || false
   [ -d "$CNB_BP_LAYERS_DIR/hello" ] || false
   [ -f "$CNB_BP_LAYERS_DIR/hello.toml" ] || false
+  [[ "$(cat $CNB_BP_LAYERS_DIR/hello.toml)" == *"[types]"* ]] || false
   [[ "$(cat $CNB_BP_LAYERS_DIR/hello.toml)" == *"launch = true"* ]] || false
   [[ "$(cat $CNB_BP_LAYERS_DIR/hello.toml)" == *"build = true"* ]] || false
   [[ "$(cat $CNB_BP_LAYERS_DIR/hello.toml)" == *"cache = true"* ]] || false

@@ -40,24 +40,20 @@ cnb_create_layer() {
   local layer_dir="${layers_dir}/${name}"
   mkdir -p "${layer_dir}"
 
-  if [[ ! -f "${layer_dir}.toml" ]]; then
-    echo "[types]" >> "${layer_dir}.toml"
+  echo "[types]" >> "${layer_dir}.toml"
 
-    if [[ "$scope" == *"launch"* ]]; then
-      echo "launch = true" >> "${layer_dir}.toml"
-    fi
-
-    if [[ "$scope" == *"build"* ]]; then
-      echo "build = true" >> "${layer_dir}.toml"
-    fi
-
-    if [[ "$scope" == *"cache"* ]]; then
-      echo "cache = true" >> "${layer_dir}.toml"
-    fi
-  else
-    touch "${layer_dir}.toml"
-    # TODO what if the existing launch,build,cache don't match?
+  if [[ "$scope" == *"launch"* ]]; then
+    echo "launch = true" >> "${layer_dir}.toml"
   fi
+
+  if [[ "$scope" == *"build"* ]]; then
+    echo "build = true" >> "${layer_dir}.toml"
+  fi
+
+  if [[ "$scope" == *"cache"* ]]; then
+    echo "cache = true" >> "${layer_dir}.toml"
+  fi
+
   echo "${layer_dir}"
 }
 
